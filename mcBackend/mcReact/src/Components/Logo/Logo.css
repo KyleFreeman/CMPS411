@@ -1,0 +1,9 @@
+.logoDiv {
+    height: 100px;
+    width: 400px;
+}
+
+.logo {
+    max-width: 100%;
+    height: auto;
+}

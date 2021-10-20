@@ -1,0 +1,23 @@
+.NavBar {
+    width: 100vw;
+    height: auto;
+    overflow: auto;
+    position: relative;
+    background-color: #2C814D;
+}
+
+.Bar li{
+    display: flex;
+    float: left;
+    width: 25%;
+    text-align: center;
+    justify-content: center;
+    padding: 15px 0px 15px 0px;
+    margin: 0px;
+    font-size: x-large;
+}
+
+.Bar li a {
+    text-decoration: none;
+    color: white;
+}

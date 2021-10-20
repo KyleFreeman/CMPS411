@@ -1,0 +1,43 @@
+.header {
+    background-image: url("../../images/header.png");
+    background-size: cover;
+    height: 320px;
+    position: relative;
+}
+
+.name {
+    margin: 0;
+    color: white;
+    height: fit-content;
+    width: fit-content;
+    overflow: hidden;
+
+    position: absolute;
+    bottom: 70px;
+    left: calc(50% + 210px);
+}
+
+.dept {
+    margin: 0;
+    color: white;
+    height: fit-content;
+    width: fit-content;
+
+    position: absolute;
+    bottom: 70px;
+    left: calc(50% - 595px);
+}
+
+.slu {
+    margin: 0;
+    color: white;
+    height: fit-content;
+    width: 62%;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 4.5em;
+
+
+    position: absolute;
+    top: 80px;
+    left: calc(50% - 595px);
+}
