@@ -1,7 +1,25 @@
 .lion {
     height: 200px;
     width: 180px;
+    position: absolute;
+    z-index: 100;
 }
+
+.lion:hover {
+    opacity: 1;
+}
+
+.anilion {
+    height: 450px;
+    width: 700px;
+    padding: 0;
+    visibility: hidden;
+    position: relative;
+    top: -114px;
+    left: calc(50% - 348px);
+    z-index: 99;
+}
+
 .lionDiv {
     height: 200px;
     width: 180px;
