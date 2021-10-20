@@ -59,14 +59,19 @@ app.post("/upload", upload.single('file'), (req, res) => {
   var classified;
   var script = './CVClassifier/simple_test_model.py';
   var scriptImg = "./public/" + String(req.file.originalname);
-  var dataset = '../../dataset/EMDS5-Original'; 
-  var train = '--test';
+  var dataset = '../../../dataset/EMDS5-Original'; 
+  var predict = '--test';
 
-  const python = spawn('python3', [script, scriptImg, dataset, train]);
+  const python = spawn('python3', [script, scriptImg, dataset, predict]);
   python.stdout.on('data', function (data) {
     console.log("Pipe data from script...");
     classified = data.toString();
-    res.send(classified);
+    if(predict == "--train") {
+      console.log("Training Model. Please Wait!");
+    }
+    else {
+      res.send(classified);
+    }
   });
 
   python.stderr.on('data', (data) => {
