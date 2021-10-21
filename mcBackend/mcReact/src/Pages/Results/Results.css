@@ -1,0 +1,14 @@
+.center{
+    display: block;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    margin-top: 8%;
+    width: 30%;
+    height: 30%;
+  }
+
+  .name {
+   position: relative;
+    margin: 30% 30% 30% 30% ; 
+  }
