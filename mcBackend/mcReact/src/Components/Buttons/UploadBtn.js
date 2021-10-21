@@ -16,10 +16,10 @@ const UploadBtn = (props) => {
                 method: "POST"
             })
         .then((res) => res.text())
-        .then((data) => {
+        .then((daata) => {
             history.push({
                 pathname: "/Results",
-                state: data
+                state: daata
             });
         })
     }
