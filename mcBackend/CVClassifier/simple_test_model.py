@@ -23,7 +23,7 @@ class_names = ["Actinophrys", "Arcella", "Aspidisca",
 
 parser = argparse.ArgumentParser()
 
-parser.add_argument('file', help='picture to be uploaded enclosed with quotes. Example: "test.png"')
+parser.add_argument('--file', help='picture to be uploaded enclosed with quotes. Example: "test.png"')
 parser.add_argument('dataset_path', help='the path to the dataset location enclosed with quotes. Example: "C:\Dataset" ')
 parser.add_argument('--train', action='store_true', help='train the model')
 parser.add_argument('--test', action='store_true', help='predict with the model')
