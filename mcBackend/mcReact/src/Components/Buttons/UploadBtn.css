@@ -54,3 +54,29 @@
     background-color: #006633;
     color: grey;
 }
+
+.buttonDiv {
+    position: relative;
+    margin: 0 auto;
+}
+
+.trainButton {
+    display: block;
+    background: white;
+    border: 1px solid black;
+    border-radius: 20px;
+    padding: 5px 8px;
+    outline: none;
+    white-space: nowrap;
+    user-select: none;
+    cursor: pointer;
+    text-shadow: 1px 1px #fff;
+    font-weight: 700;
+    font-size: 8pt;
+    margin: 5px auto 5px auto;
+}
+
+.submitBtn:hover {
+    background-color: #006633;
+    color: grey;
+}

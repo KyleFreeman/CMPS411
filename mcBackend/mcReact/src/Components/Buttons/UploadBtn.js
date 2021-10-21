@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import './UploadBtn.css'
+import Button from './Button'
 
 const UploadBtn = (props) => {
     const [selectedFile, setSelectedFile] = useState(null);
@@ -16,10 +17,10 @@ const UploadBtn = (props) => {
                 method: "POST"
             })
         .then((res) => res.text())
-        .then((data) => {
+        .then((daata) => {
             history.push({
                 pathname: "/Results",
-                state: data
+                state: daata
             });
         })
     }
@@ -31,6 +32,7 @@ const UploadBtn = (props) => {
             </div>
            <button className="submitBtn" onClick={submitForm}>Upload</button>
            <p className="classify" id="classify"></p>
+           <Button type="Train Model" />
         </div>
     )
 }

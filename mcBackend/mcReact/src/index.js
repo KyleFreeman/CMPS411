@@ -6,11 +6,11 @@ import { Routes } from './Pages/Routes';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
-  <React.StrictMode>
+   <React.StrictMode>
     <Router>
       <Routes/>
-    </Router>
-  </React.StrictMode>,
+    </Router>,
+   </React.StrictMode>,
   document.getElementById('root')
 );
 
