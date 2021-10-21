@@ -1,0 +1,7 @@
+.loading {
+    visibility: hidden;
+    height: 300px;
+    width: 400px;
+    position: relative;
+    margin: 0 auto;
+}

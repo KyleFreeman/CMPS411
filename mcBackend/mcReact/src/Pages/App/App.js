@@ -1,5 +1,6 @@
 import './App.css';
 import Body from '../../Components/Body/Body';
+import Button from '../../Components/Buttons/Button';
 
 function App() {
   return (
