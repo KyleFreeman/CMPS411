@@ -1,6 +1,7 @@
 const express = require('express'); //Line 1
 const cors = require('cors');
 const multer = require('multer');
+const path = require('path');
 const { spawn } = require("child_process");
 const fs = require('fs');
 const userP = require('./userPass.json');
@@ -59,10 +60,10 @@ app.post("/upload", upload.single('file'), (req, res) => {
   var classified;
   var script = './CVClassifier/simple_test_model.py';
   var scriptImg = "./public/" + String(req.file.originalname);
-  var dataset = '../../../dataset/EMDS5-Original'; 
+  var dataset = '../../EMDS5-Original'; 
   var predict = '--test';
 
-  const python = spawn('python3', [script, scriptImg, dataset, predict]);
+  const python = spawn('python', [script, scriptImg, dataset, predict]);
   python.stdout.on('data', function (data) {
     console.log("Pipe data from script...");
     classified = data.toString();
@@ -90,13 +91,18 @@ app.post("/upload", upload.single('file'), (req, res) => {
 
 app.get("/download/:name", (req, res) => {
   let fileName = req.params.name;
-  console.log(fileName);
-  bucket.openDownloadStreamByName(fileName).pipe(fs.createWriteStream('./public/' + fileName)).on('error', function(error) {
-      assert.ifError(error);
-      console.log("error");
-    }).on('finish', function() {
-      console.log('Done!');
-    });
+    let fileLocation = path.join('/public/' , String(fileName));
+    //res.send({image: fileLocation});
+    res.sendFile(`${fileLocation}`, { root : __dirname})
 });
+
+  // console.log(fileName);
+  // bucket.openDownloadStreamByName(fileName).pipe(fs.createWriteStream('./public/' + fileName)).on('error', function(error) {
+  //     assert.ifError(error);
+  //     console.log("error");
+  //   }).on('finish', function() {
+  //     console.log('Done!');
+  //   });
+//});
 
 app.listen(port, () => console.log("Server is up"))
