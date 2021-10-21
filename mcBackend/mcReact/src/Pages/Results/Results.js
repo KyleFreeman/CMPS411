@@ -1,9 +1,8 @@
 import './Results.css';
-import { useState, useEffect } from 'react';
+import TextBox from '../../Components/TextBox/TextBox';
 
 function Results(props) {
   const { state } = props.location
-  const [file, setFile] = useState(null);
 
   const splitName = state.split(/(\s+)/);
 
@@ -24,15 +23,15 @@ function Results(props) {
       imageURL = URL.createObjectURL(data);
       imageFile = new Image();
       imageFile.src = imageURL;
-      let parent = document.getElementById("BodyMain");
+      imageFile.id = "Image";
+      let parent = document.getElementById("ResultsMain");
       parent.appendChild(imageFile);
-      console.log(imageURL);
     });
 
     return (
       <div className="Main">
-        <div id="BodyMain" className="BodyMain">
-          
+        <div id="ResultsMain" className="ResultsMain">
+          <TextBox className="classi" text={classification} />
         </div>
   
         {/* <Loading/> */}

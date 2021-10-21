@@ -1,14 +1,20 @@
-.center{
-    display: block;
-    justify-content: center;
-    align-items: center;
-    margin: auto;
-    margin-top: 8%;
-    width: 30%;
-    height: 30%;
+#Image{
+    width: inherit !important;
+    height: inherit !important;
   }
 
-  .name {
-   position: relative;
-    margin: 30% 30% 30% 30% ; 
-  }
+#ResultsMain {
+  height: 400px !important;
+  width: 400px !important;
+  position: relative;
+  margin: 100px auto;
+}
+
+.classi {
+  position: relative;
+  margin: 0 auto ;
+  text-align: center;
+  font-size: 20pt;
+  color: white;
+  margin-bottom: 10px;
+}
