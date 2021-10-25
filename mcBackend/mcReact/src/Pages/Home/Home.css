@@ -1,6 +1,6 @@
 html {
     height: 100%;
-    width: 100%;
+    width: 100vw;
     background-image: url("../../images/background_plain.png");
     background-size: cover;
 }
