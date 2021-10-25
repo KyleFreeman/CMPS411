@@ -1,21 +1,12 @@
 import React from 'react'
-import { useLoading, Puff } from '@agney/react-loading';
+import './Loading.css'
+import loading from '../../images/loading.gif'
 
 const Loading = () => {
-    const { containerProps, indicatorEl } = useLoading({
-        loading: true,
-        indicator: <Puff width="50" />,
-    });
 
     return (
-        <div className="Loading">
-            <br/>
-            <br/>
-            <h3>Classifying</h3>
-
-            <section {...containerProps}>
-            {indicatorEl} {/* renders only while loading */}
-            </section>
+        <div id="loadingDiv" className="loadingDiv">
+            <img src={loading} id="loadingGif" className="loadingGif" />
         </div>
     )
 }

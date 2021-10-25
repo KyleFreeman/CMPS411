@@ -1,12 +1,13 @@
 import './App.css';
 import Body from '../../Components/Body/Body';
-import Button from '../../Components/Buttons/Button';
+import Loading from '../../Components/Loading/Loading';
 
 function App() {
   return (
     <div className="Main">
-      <div className="BodyMain">
+      <div id="uploadMain" className="uploadMain">
         <Body/>
+        <Loading />
       </div>
     </div>
   );
