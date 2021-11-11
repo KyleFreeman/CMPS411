@@ -1,5 +1,4 @@
 import React from 'react'
-import DownloadBtn from '../Buttons/DownloadBtn'
 import UploadBtn from '../Buttons/UploadBtn'
 import './Body.css'
 

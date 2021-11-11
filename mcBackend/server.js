@@ -25,7 +25,6 @@ const client = new MongoClient(uri);
 
 try {
   client.connect();
-  var db = client.db("micro-organisms").collection("micro-organisms");
   console.log("Database Connected");
 }
 catch {
@@ -74,6 +73,7 @@ app.post("/upload", upload.single('file'), (req, res) => {
     }
     else {
       res.send(classified);
+      //fs.createReadStream('./public/' + req.file.originalname).pipe(bucket.openUploadStream(req.file.originalname, {metadata: {classification : classified}})).on('error', function(error) {assert.ifError(error);});
     }
   });
 
@@ -85,10 +85,6 @@ app.post("/upload", upload.single('file'), (req, res) => {
     console.log(`Child Process closed with code ${code}`);
     console.log("Done");
   });
-
-  // fs.createReadStream('./public/' + req.file.originalname).pipe(bucket.openUploadStream(req.file.originalname)).on('error', function(error) {assert.ifError(error);});
-  
-  // console.log(req.file.originalname);
 });
 
 app.post("/train", (req, res) => {

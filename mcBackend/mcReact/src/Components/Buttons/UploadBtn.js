@@ -20,7 +20,7 @@ const UploadBtn = (props) => {
         .then((daata) => {
             history.push({
                 pathname: "/Results",
-                state: daata
+                stateClass: daata
             });
         })
     }
