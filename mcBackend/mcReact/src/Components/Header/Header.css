@@ -1,20 +1,25 @@
 .header {
-    background-image: url("../../images/header.png");
+    background-image: url("../../images/newback.jpg");
     background-size: cover;
-    height: 320px;
+    height: 275px;
     position: relative;
 }
 
 .name {
     margin: 0;
-    color: white;
-    height: fit-content;
-    width: fit-content;
-    overflow: hidden;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 28pt;
+    color: rgb(236, 235, 235);
+    height: 100px;
+    width: 350px;
+   
+    
+    
+   
 
     position: absolute;
-    bottom: 70px;
-    left: calc(50% + 210px);
+    bottom: 50px;
+    right: calc(50% + 325px);
 }
 
 .dept {
