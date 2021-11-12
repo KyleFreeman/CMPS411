@@ -1,6 +1,7 @@
 .AboutPage {
     width: 100vw;
-    height: 100%;
+    height: 500px;
+    margin-bottom: 0;
 }
 
  .about {
@@ -10,9 +11,7 @@
      margin-top: 100px;
     position: relative;
     text-align: center;
-    left: 550px; 
-
-
+    margin: 90px auto 0 auto;
     color: whitesmoke;
 } 
 
@@ -42,4 +41,11 @@
 
     color: whitesmoke;
 
+}
+
+#Beachy {
+    position: relative;
+    left: calc(50vw - 125px);
+    top: -200px;
+    margin-bottom: 0px;
 }

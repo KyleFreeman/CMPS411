@@ -9,6 +9,7 @@ const SubGallary = (props) => {
             <h2 id="GalText">Phylum {props.text}:</h2>
             <img src={image1} id="image1" alt="image1"></img>
             <img src={image2} id="image2" alt="image2"></img>
+            <button id="leftRight">&#x3c;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&#x3e;</button>
         </div>
     )
 }

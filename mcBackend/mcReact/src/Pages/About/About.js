@@ -1,5 +1,6 @@
 import './About.css';
 import TextBox from '../../Components/TextBox/TextBox';
+import Beachy from '../../images/beachy.jpg'
 
 function About() {
 
@@ -36,7 +37,8 @@ function About() {
       <div className="AboutPage">
       <TextBox className="about" text={aboutUsBox}/>
       <TextBox className="create" text={creatorsBox}/>
-        <TextBox className="contact" text={contactBox} /> 
+      <img src={Beachy} alt="Dr.Beachy" id="Beachy" />
+      <TextBox className="contact" text={contactBox} /> 
       </div>
 
      
