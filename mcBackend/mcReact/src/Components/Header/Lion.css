@@ -25,6 +25,6 @@
     width: 180px;
     position: relative;
     left: calc(50% - 90px);
-    top: 275px;
+    top: -10px;
     z-index: 100;
 }

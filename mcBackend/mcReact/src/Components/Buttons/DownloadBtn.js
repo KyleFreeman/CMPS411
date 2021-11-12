@@ -1,9 +1,7 @@
 import React, { useState } from 'react'
 import './DownloadBtn.css'
 
-const DownloadBtn = () => {
-    const [selectedFile, setSelectedFile] = useState(null);
-    
+const DownloadBtn = () => {    
     const pullImage = () => {
         let textArea = document.getElementById("fName");
         let uri = "http://localhost:3001/download/" + String(textArea.value);

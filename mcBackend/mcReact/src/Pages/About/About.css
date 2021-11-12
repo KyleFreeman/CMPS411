@@ -1,0 +1,51 @@
+.AboutPage {
+    width: 100vw;
+    height: 500px;
+    margin-bottom: 0;
+}
+
+ .about {
+    height: 150px;
+    width: 400px;
+    font-size: xx-large;
+     margin-top: 100px;
+    position: relative;
+    text-align: center;
+    margin: 90px auto 0 auto;
+    color: whitesmoke;
+} 
+
+.create {
+    height: 200px;
+    width: 400px;
+    font-size: xx-large;
+
+    display: flex;
+    position: relative;
+    left: 200px;
+
+    color: whitesmoke;
+}
+
+.contact {
+    height: 200px;
+    width: 400px;
+    font-size: xx-large;
+    margin-top: 150px;
+
+    display: flex;
+    position: relative;
+    float: right;
+    right: 200px;
+    bottom: 350px;
+
+    color: whitesmoke;
+
+}
+
+#Beachy {
+    position: relative;
+    left: calc(50vw - 125px);
+    top: -200px;
+    margin-bottom: 0px;
+}

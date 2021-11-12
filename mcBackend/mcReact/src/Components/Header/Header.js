@@ -5,9 +5,8 @@ import Lion from "./Lion";
 const Header = () => {
     return (
         <div className="header">
-            <h1 className="slu">Southeastern Louisiana University</h1>
-            <h1 className="name">Micro-Organism Classifier</h1>
-            <h1 className="dept">Department of Biology</h1>
+            <h1 className="name">Micro-Organism</h1>
+            <h1 className="name2">Classifier</h1>
             <Lion/>
         </div>
     )

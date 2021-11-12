@@ -1,6 +1,7 @@
 #Image{
     width: inherit !important;
     height: inherit !important;
+    border: 10px solid white;
   }
 
 #ResultsMain {
@@ -14,7 +15,7 @@
   position: relative;
   margin: 0 auto ;
   text-align: center;
-  font-size: 20pt;
+  font-size: 25pt;
   color: white;
   margin-bottom: 10px;
 }

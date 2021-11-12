@@ -1,20 +1,35 @@
 .header {
-    background-image: url("../../images/header.png");
-    background-size: cover;
-    height: 320px;
+    background-image: url("../../images/newback.jpg");
+    background-size: 100vw 800px;
+    height: 275px;
     position: relative;
 }
 
 .name {
-    margin: 0;
-    color: white;
-    height: fit-content;
+    margin: 0 auto;
+    padding-top: 40px;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 50pt;
+    color: rgb(236, 235, 235);
+    height: 100px;
     width: fit-content;
-    overflow: hidden;
+    position: relative;
 
-    position: absolute;
-    bottom: 70px;
-    left: calc(50% + 210px);
+    /* bottom: 100px;
+    left: calc(50% - 160px); */
+}
+
+.name2 {
+    margin: 0 auto;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 50pt;
+    color: rgb(236, 235, 235);
+    height: 100px;
+    width: fit-content;
+    position: relative;
+
+    /* bottom: 100px;
+    left: calc(50% - 160px); */
 }
 
 .dept {

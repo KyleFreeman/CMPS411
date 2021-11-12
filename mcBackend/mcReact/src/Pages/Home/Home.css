@@ -3,6 +3,7 @@ html {
     width: 100vw;
     background-image: url("../../images/background_plain.png");
     background-size: cover;
+    background-position: 0 350px;
 }
 
 .HomePage {

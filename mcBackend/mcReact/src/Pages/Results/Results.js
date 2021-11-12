@@ -1,47 +1,49 @@
 import './Results.css';
 import TextBox from '../../Components/TextBox/TextBox';
+import SubGallary from '../../Components/SubGallary/SubGallary';
 import axios from 'axios';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
 
 const Results = (props) => {
-  const { state } = props.location
-  const splitName = state.split(/(\s+)/);
-
-  const image = splitName[0]
-  const classification = splitName[2]
-  const url = "http://localhost:3001/download/" + String(image);
-
-  const grabImage = (url) => {
-    var imageURL;
-    var imageFile;
-
-    axios({
-      method: 'get',
-      url: url,
-      responseType: 'blob'
-    })
-    .then(function (response) {
-      imageURL = URL.createObjectURL(response.data);
-      imageFile = new Image();
-      imageFile.src = imageURL;
-      imageFile.id = "Image";
-      let parent = document.getElementById("ResultsMain");
-      parent.appendChild(imageFile);
-    });
-  }
+  const { stateClass } = props.location
+  const [ state, setState ] = useState(null);
+  const [ classification, setClassification ] = useState("");
+  const history = useHistory();
 
   useEffect(() => {
+    const splitName = stateClass.split(/(\s+)/);
+
+    const image = splitName[0]
+    setClassification(splitName[2]);
+    const url = "http://localhost:3001/download/" + String(image);
+    
+    const grabImage = async (url) => {
+      var imageURL;
+
+      const response = await axios({
+          method: 'get',
+          url: url,
+          responseType: 'blob'
+        });
+
+      if(response.status === 200){
+        imageURL = URL.createObjectURL(response.data);
+        setState(imageURL);
+      }
+    }
+
     grabImage(url);
   },[]);
 
   return (
     <div className="Main">
-      <div  id="ResultsMain" className="ResultsMain" >
-        <TextBox className="classi" text={classification} />
-
+      <div id="ResultsMain" className="ResultsMain" >
+        <TextBox className="classi" text={`Predicted Result: ${classification}`} />
+        <img src={state} id="Image"></img>
       </div>
-
+      <SubGallary className="SubGallary" text={classification}/>
     </div>
   );
 }
