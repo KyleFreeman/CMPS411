@@ -1,4 +1,5 @@
 import React from 'react';
+import './Routes.css';
 import Bar from "../Components/NavBar/BtmBar"
 import Home from './Home/Home';
 import Upload from './App/App';
@@ -11,7 +12,7 @@ import { Route, Switch, Redirect } from 'react-router-dom';
 
 export const Routes = () => {
   return (
-    <div>
+    <div className="RoutesDiv">
       <Header/>
       <NavBar />
       <Bar/>
