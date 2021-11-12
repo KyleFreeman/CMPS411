@@ -1,58 +1,36 @@
 .header {
     background-image: url("../../images/newback.jpg");
-    background-size: 100vw 800px;
+    background-size: cover;
     height: 275px;
+    width: 100vw;
     position: relative;
 }
 
+.titles {
+    margin: auto;
+}
+
 .name {
-    margin: 0 auto;
+    margin: auto;
     padding-top: 40px;
     font-family:Verdana, Geneva, Tahoma, sans-serif;
     font-size: 50pt;
     color: rgb(236, 235, 235);
-    height: 100px;
+    height: fit-content;
     width: fit-content;
-    position: relative;
 
     /* bottom: 100px;
     left: calc(50% - 160px); */
 }
 
 .name2 {
-    margin: 0 auto;
+    margin: auto;
     font-family:Verdana, Geneva, Tahoma, sans-serif;
     font-size: 50pt;
     color: rgb(236, 235, 235);
-    height: 100px;
+    height: fit-content;
     width: fit-content;
-    position: relative;
 
     /* bottom: 100px;
     left: calc(50% - 160px); */
-}
-
-.dept {
-    margin: 0;
-    color: white;
-    height: fit-content;
-    width: fit-content;
-
-    position: absolute;
-    bottom: 70px;
-    left: calc(50% - 595px);
-}
-
-.slu {
-    margin: 0;
-    color: white;
-    height: fit-content;
-    width: 62%;
-    font-family:Verdana, Geneva, Tahoma, sans-serif;
-    font-size: 4.5em;
-
-
-    position: absolute;
-    top: 80px;
-    left: calc(50% - 595px);
 }
