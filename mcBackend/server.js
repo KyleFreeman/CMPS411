@@ -25,7 +25,6 @@ const client = new MongoClient(uri);
 
 try {
   client.connect();
-  var db = client.db("micro-organisms").collection("micro-organisms");
   console.log("Database Connected");
 }
 catch {
@@ -58,12 +57,14 @@ const upload = multer({storage: storage})
 
 app.post("/upload", upload.single('file'), (req, res) => {
   var classified;
+  var fileName = req.file.originalname;
   var script = './CVClassifier/simple_test_model.py';
-  var scriptImg = "./public/" + String(req.file.originalname);
-  var dataset = '../../EMDS5-Original'; 
+  var file = "--file";
+  var scriptImg = `./public/${fileName}`;
+  var dataset = '../../../dataset/EMDS5-Original'; 
   var predict = '--test';
 
-  const python = spawn('python', [script, scriptImg, dataset, predict]);
+  const python = spawn('python3', [script, dataset, file, scriptImg, predict]);
   python.stdout.on('data', function (data) {
     console.log("Pipe data from script...");
     classified = data.toString();
@@ -72,6 +73,7 @@ app.post("/upload", upload.single('file'), (req, res) => {
     }
     else {
       res.send(classified);
+      //fs.createReadStream('./public/' + req.file.originalname).pipe(bucket.openUploadStream(req.file.originalname, {metadata: {classification : classified}})).on('error', function(error) {assert.ifError(error);});
     }
   });
 
@@ -82,6 +84,27 @@ app.post("/upload", upload.single('file'), (req, res) => {
   python.on('close', (code) => {
     console.log(`Child Process closed with code ${code}`);
     console.log("Done");
+  });
+});
+
+app.post("/train", (req, res) => {
+  var script = './CVClassifier/simple_test_model.py';
+  var dataset = '../../../dataset/EMDS5-Original'; 
+  var predict = '--train';
+
+  const python = spawn('python3', [script, dataset, predict]);
+  python.stdout.on('data', function (data) {
+    console.log("Pipe data from script...");
+  });
+
+  python.stderr.on('data', (data) => {
+    console.error(`stderr: ${data}`);
+  });
+
+  python.on('close', (code) => {
+    console.log(`Child Process closed with code ${code}`);
+    console.log("Done");
+    res.send("Model Trained");
   });
 
   // fs.createReadStream('./public/' + req.file.originalname).pipe(bucket.openUploadStream(req.file.originalname)).on('error', function(error) {assert.ifError(error);});

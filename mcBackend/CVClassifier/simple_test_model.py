@@ -23,14 +23,18 @@ class_names = ["Actinophrys", "Arcella", "Aspidisca",
 
 parser = argparse.ArgumentParser()
 
-parser.add_argument('file', help='picture to be uploaded enclosed with quotes. Example: "test.png"')
 parser.add_argument('dataset_path', help='the path to the dataset location enclosed with quotes. Example: "C:\Dataset" ')
+parser.add_argument('--file')
 parser.add_argument('--train', action='store_true', help='train the model')
 parser.add_argument('--test', action='store_true', help='predict with the model')
 
 args = parser.parse_args()
+if args.file:
+    u_filepath = args.file
+    file_name = os.path.basename(u_filepath)
+else:
+    pass
 
-u_filepath = args.file
 data_directory = args.dataset_path
 
 METRICS = [
@@ -86,10 +90,12 @@ if args.train:
     model.save_weights('./CVClassifier/model_weights')
     print("Model Trained!")
 
-file_name = os.path.basename(u_filepath)
-user_upload = tf.keras.preprocessing.image.load_img(u_filepath)
-input_arr = tf.keras.preprocessing.image.img_to_array(user_upload)
-input_arr = np.array([tf.image.resize(input_arr, (256, 256))])
+if args.file:
+    user_upload = tf.keras.preprocessing.image.load_img(u_filepath)
+    input_arr = tf.keras.preprocessing.image.img_to_array(user_upload)
+    input_arr = np.array([tf.image.resize(input_arr, (256, 256))])
+else:
+    pass
 
 if args.test:
     model.load_weights('./CVClassifier/model_weights')
