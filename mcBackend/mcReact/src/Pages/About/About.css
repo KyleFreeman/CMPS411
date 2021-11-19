@@ -18,34 +18,42 @@
 .create {
     height: 200px;
     width: 400px;
-    font-size: xx-large;
+    font-size: 15pt;
 
     display: flex;
     position: relative;
-    left: 200px;
+    margin: 0 auto;
 
     color: whitesmoke;
 }
 
-.contact {
+.client {
     height: 200px;
     width: 400px;
-    font-size: xx-large;
-    margin-top: 150px;
+    font-size: 15pt;
 
     display: flex;
     position: relative;
-    float: right;
-    right: 200px;
-    bottom: 350px;
+    margin: 0 auto;
 
     color: whitesmoke;
 
+}
+
+#Pic {
+    position: relative;
+    width: 400pt;
+    height: 200pt;
+    left: calc(50vw - 275px);
+    /* bottom: 150px; */
+    margin: 0 auto;
+
+    
 }
 
 #Beachy {
     position: relative;
-    left: calc(50vw - 125px);
-    top: -200px;
+    left: calc(50vw - 150px);
+    
     margin-bottom: 0px;
 }
