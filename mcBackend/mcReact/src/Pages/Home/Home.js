@@ -11,10 +11,10 @@ function Home() {
   const instructBox =  <div>
       Instructions:
       <br/>
-      <li>Collect tiny critter</li>
-      <li>Photograph tiny critter</li>
-      <li>Upload your photo</li>
-      <li>Watch in amazement</li>
+      <li>Collect sample of Micoorganism</li>
+      <li>Photograph organism through microscope</li>
+      <li>Upload your photograph</li>
+      <li>Receive the organism classification</li>
     </div>;
 
   return (
