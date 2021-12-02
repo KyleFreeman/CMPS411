@@ -73,7 +73,9 @@ app.post("/upload", upload.single('file'), (req, res) => {
     }
     else {
       res.send(classified);
-      //fs.createReadStream('./public/' + req.file.originalname).pipe(bucket.openUploadStream(req.file.originalname, {metadata: {classification : classified}})).on('error', function(error) {assert.ifError(error);});
+      const splitName = classified.split(/(\s+)/);
+      console.log(splitName[2]);
+      fs.createReadStream('./public/' + req.file.originalname).pipe(bucket.openUploadStream(req.file.originalname, {metadata: {classification : splitName[2]}})).on('error', function(error) {assert.ifError(error);});
     }
   });
 
@@ -113,19 +115,22 @@ app.post("/train", (req, res) => {
 });
 
 app.get("/download/:name", (req, res) => {
-  let fileName = req.params.name;
-    let fileLocation = path.join('/public/' , String(fileName));
-    //res.send({image: fileLocation});
-    res.sendFile(`${fileLocation}`, { root : __dirname})
-});
+  let queryString = req.params.name;
 
-  // console.log(fileName);
-  // bucket.openDownloadStreamByName(fileName).pipe(fs.createWriteStream('./public/' + fileName)).on('error', function(error) {
-  //     assert.ifError(error);
-  //     console.log("error");
-  //   }).on('finish', function() {
-  //     console.log('Done!');
-  //   });
-//});
+  client.db("micro-organisms").collection("fs.files").find({metadata : {classification : queryString}}).toArray(function(err, result) {
+    if (err) throw err;
+    for(let i = 0; i < result.length; i++) {
+      bucket.openDownloadStreamByName(result[i].filename).pipe(fs.createWriteStream('./public/' + result[i].filename)).on('error', function(error) {
+        assert.ifError(error);
+        console.log("error");
+      }).on('finish', function() {
+        console.log('Done!');
+      });
+    }
+  });
+
+  // let fileLocation = path.join('/public/' , String(fileName));
+  // res.sendFile(`${fileLocation}`, { root : __dirname})
+});
 
 app.listen(port, () => console.log("Server is up"))
