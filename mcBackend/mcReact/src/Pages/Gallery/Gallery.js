@@ -1,13 +1,15 @@
 import './Gallery.css';
+import SearchBar from './SearchBar';
 
-function Gallery() {
+const Gallery = () => {
+
+    
+
   return (
-    <div className="Main">
-      <div className="BodyMain">
-        <p>This is the body of Gallery.</p>
-      </div>
-
-      {/* <Loading/> */}
+    <div className="gallery">
+     
+           <SearchBar />
+      
     </div>
   );
 }
