@@ -39,7 +39,7 @@ app.get("/home", (req,res) => {
 
 const storage = multer.diskStorage({
     destination: function(req, file, callback) {
-      callback(null, 'public/');
+      callback(null, 'ImageUpload/');
     },
     filename: function (req, file, callback) {
       callback(null, file.originalname);
@@ -60,7 +60,7 @@ app.post("/upload", upload.single('file'), (req, res) => {
   var fileName = req.file.originalname;
   var script = './CVClassifier/simple_test_model.py';
   var file = "--file";
-  var scriptImg = `./public/${fileName}`;
+  var scriptImg = `./ImageUpload/${fileName}`;
   var dataset = '../../../dataset/EMDS5-Original'; 
   var predict = '--test';
 
@@ -75,7 +75,7 @@ app.post("/upload", upload.single('file'), (req, res) => {
       res.send(classified);
       const splitName = classified.split(/(\s+)/);
       console.log(splitName[2]);
-      fs.createReadStream('./public/' + req.file.originalname).pipe(bucket.openUploadStream(req.file.originalname, {metadata: {classification : splitName[2]}})).on('error', function(error) {assert.ifError(error);});
+      fs.createReadStream('./ImageUpload/' + req.file.originalname).pipe(bucket.openUploadStream(req.file.originalname, {metadata: {classification : splitName[2]}})).on('error', function(error) {assert.ifError(error);});
     }
   });
 
@@ -86,6 +86,11 @@ app.post("/upload", upload.single('file'), (req, res) => {
   python.on('close', (code) => {
     console.log(`Child Process closed with code ${code}`);
     console.log("Done");
+  });
+
+  const cleanup = spawn('python3', ["./ImageCleanup/cleanup.py", "./ImageUpload/"]);
+  cleanup.stdout.on('out', function (out) {
+    console.log(out.toString());
   });
 });
 
@@ -108,13 +113,15 @@ app.post("/train", (req, res) => {
     console.log("Done");
     res.send("Model Trained");
   });
-
-  // fs.createReadStream('./public/' + req.file.originalname).pipe(bucket.openUploadStream(req.file.originalname)).on('error', function(error) {assert.ifError(error);});
-  
-  // console.log(req.file.originalname);
 });
 
 app.get("/download/:name", (req, res) => {
+
+  const DLcleanup = spawn('python3', ["./ImageCleanup/cleanup.py", "./public/"]);
+  DLcleanup.stdout.on('dlOut', function (dlOut) {
+    console.log(dlOut.toString());
+  });
+
   let queryString = req.params.name;
 
   client.db("micro-organisms").collection("fs.files").find({metadata : {classification : queryString}}).toArray(function(err, result) {
