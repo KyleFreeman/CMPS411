@@ -113,45 +113,54 @@ app.post("/train", (req, res) => {
 
 app.get("/download/:name", (req, res) => {
 
-  // const DLcleanup = spawn('python3', ["./ImageCleanup/cleanup.py", "./public/"]);
-  // DLcleanup.stdout.on('dlOut', function (dlOut) {
-  //   console.log(dlOut.toString());
-  // });
-
-  let queryString = req.params.name;
+  const DLcleanup = spawn('python3', ["./ImageCleanup/cleanup.py", "./public/"]);
   
-  async function downImage() {
-    return new Promise(function(resolve, reject){
-      client.db("micro-organisms").collection("fs.files").find({metadata : {classification : queryString}}).toArray(function(err, result) {
-        if (err) throw err;
-        for(let i = 0; i < result.length; i++) {
-          bucket.openDownloadStreamByName(result[i].filename).pipe(fs.createWriteStream('./public/' + result[i].filename)).on('error', function (error) {
-            assert.ifError(error);
-            console.log("error");
-          }).on('finish', function () {
-            console.log(result[i].filename);
-          });
-        }
-      });
-      resolve("resolved");
-      reject("rejected");
-    });
-  }
+  const sleep = (waitTimeInMs) => new Promise(resolve => setTimeout(resolve, waitTimeInMs));
 
-  const grabNames = async () => {
-    const result = await downImage();
-    const folderPath = "./public/";
-    var imageList = [];
-    fs.readdir(folderPath, (err, files) => {
-      files.forEach( function(file) {
-        imageList.push(file);
-      });
-      console.log(imageList);
-      res.send(imageList);
+  sleep(1000).then(() => {
+    DLcleanup.stdout.on('data', function (dlOut) {
+      console.log(dlOut.toString());
     });
-  }
+  });
+  
+  let queryString = req.params.name;
 
-  grabNames();
+  client.db("micro-organisms").collection("fs.files").find({metadata : {classification : queryString}}).toArray(function(err, result) {
+    if (err) throw err;
+    Promise.all(result.slice(0,19).map((image) => {
+      bucket.openDownloadStreamByName(image.filename).pipe(fs.createWriteStream('./public/' + image.filename)).on('error', function (error) {
+        assert.ifError(error);
+        console.log("error");
+      }).on('finish', function () {
+        console.log(image.filename);
+      });
+      
+      return image.filename;
+
+    })).then((result) => {
+      setTimeout((() => {
+        console.log(result);
+        res.send(result);
+      }), 2000);
+    });
+    
+    // for(let i = 0; i < result.length; i++) {
+    //   bucket.openDownloadStreamByName(result[i].filename).pipe(fs.createWriteStream('./public/' + result[i].filename)).on('error', function (error) {
+    //     assert.ifError(error);
+    //     console.log("error");
+    //   }).on('finish', function () {
+    //     console.log(result[i].filename);
+    //   });
+    // }
+
+    // console.log(resultArr);
+
+    // const folderPath = "./public/";
+    // const imageList = fs.readdirSync(folderPath);
+    
+    // console.log(imageList);
+  });
+
 
   // let fileLocation = path.join('/public/' , String(fileName));
   // res.sendFile(`${fileLocation}`, { root : __dirname})

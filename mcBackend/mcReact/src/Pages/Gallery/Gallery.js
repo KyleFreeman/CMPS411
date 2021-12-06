@@ -4,17 +4,18 @@ import { useState } from 'react';
 
 const Gallery = () => {
 
-  const [Images, setImages] = useState(null);
+  const [Images, setImages] = useState(Array);
+  const [search, setSearch] = useState("");
 
-  const downloadImage = async () => {
-      var search = document.getElementById("header-search").value;
-      const url = "http://localhost:3001/download/" + String(search);
+  
+  const downloadImage = () => {
+    const url = "http://localhost:3001/download/" + String(search);
+    setSearch(document.getElementById("header-search").value);
 
-      const response = await axios({
-        method: 'get',
-        url: url,
-      });
-
+    axios({
+      method: 'get',
+      url: url,
+    }).then((response) => {
       if(response.status === 200){
         var listOfImages = new Array();
         listOfImages = response.data;
@@ -23,28 +24,36 @@ const Gallery = () => {
         }
 
         const listItems = listOfImages.map((image) =>
-          <img className="gImage" src={image} alt={search}></img>
+          <div className="responsive">
+            <div className="UniqueImage">
+              <a target="_blank" href={image}>
+                <img className="gImage" src={image} alt={search}></img>
+              </a>
+            </div>
+          </div>
         );
 
         setImages(listItems);
+        document.getElementById("galleryImages").style.visibility = "visible";
       }
+    });
   }
   
   return (
     <div className="gallery">
       <div className="searchbar">
-        <label htmlFor="header-search">
-          <span className="hidden">Search </span>
-        </label>
         <input
           type="text"
           id="header-search"
-          placeholder="Organism Name"
+          placeholder="Search Organism Here"
           name="s"
         />
-        <button type="submit" onClick={downloadImage} /*onClick="document.getElementById('gImages').style.visibility = visible;"*/ >Search</button>
+        <button id="submitInput" type="submit" onClick={downloadImage}><i className="fa fa-search"></i></button>
       </div>
-      <ul id="galleryImages">{Images}</ul>      
+      <div id="galleryImages">
+        <h1 id="searchClass">{search}</h1>
+        {Images}
+      </div>      
     </div>
   );
 }
