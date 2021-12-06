@@ -17,7 +17,7 @@ const Results = (props) => {
 
     const image = splitName[0]
     setClassification(splitName[2]);
-    const url = "http://localhost:3001/download/" + String(image);
+    const url = "http://localhost:3001/result/" + String(image);
     
     const grabImage = async (url) => {
       var imageURL;

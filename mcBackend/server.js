@@ -12,7 +12,7 @@ const { assert } = require('console');
 const app = express(); //Line 2
 const port = 3001; //Line 3
 
-app.use(express.static('public'));
+app.use(express.static(__dirname + '/public'));
 app.use(express.json());
 app.use(express.urlencoded({ extended : true }));
 app.use(cors());
@@ -88,10 +88,6 @@ app.post("/upload", upload.single('file'), (req, res) => {
     console.log("Done");
   });
 
-  const cleanup = spawn('python3', ["./ImageCleanup/cleanup.py", "./ImageUpload/"]);
-  cleanup.stdout.on('out', function (out) {
-    console.log(out.toString());
-  });
 });
 
 app.post("/train", (req, res) => {
@@ -117,27 +113,59 @@ app.post("/train", (req, res) => {
 
 app.get("/download/:name", (req, res) => {
 
-  const DLcleanup = spawn('python3', ["./ImageCleanup/cleanup.py", "./public/"]);
-  DLcleanup.stdout.on('dlOut', function (dlOut) {
-    console.log(dlOut.toString());
-  });
+  // const DLcleanup = spawn('python3', ["./ImageCleanup/cleanup.py", "./public/"]);
+  // DLcleanup.stdout.on('dlOut', function (dlOut) {
+  //   console.log(dlOut.toString());
+  // });
 
   let queryString = req.params.name;
-
-  client.db("micro-organisms").collection("fs.files").find({metadata : {classification : queryString}}).toArray(function(err, result) {
-    if (err) throw err;
-    for(let i = 0; i < result.length; i++) {
-      bucket.openDownloadStreamByName(result[i].filename).pipe(fs.createWriteStream('./public/' + result[i].filename)).on('error', function(error) {
-        assert.ifError(error);
-        console.log("error");
-      }).on('finish', function() {
-        console.log('Done!');
+  
+  async function downImage() {
+    return new Promise(function(resolve, reject){
+      client.db("micro-organisms").collection("fs.files").find({metadata : {classification : queryString}}).toArray(function(err, result) {
+        if (err) throw err;
+        for(let i = 0; i < result.length; i++) {
+          bucket.openDownloadStreamByName(result[i].filename).pipe(fs.createWriteStream('./public/' + result[i].filename)).on('error', function (error) {
+            assert.ifError(error);
+            console.log("error");
+          }).on('finish', function () {
+            console.log(result[i].filename);
+          });
+        }
       });
-    }
-  });
+      resolve("resolved");
+      reject("rejected");
+    });
+  }
+
+  const grabNames = async () => {
+    const result = await downImage();
+    const folderPath = "./public/";
+    var imageList = [];
+    fs.readdir(folderPath, (err, files) => {
+      files.forEach( function(file) {
+        imageList.push(file);
+      });
+      console.log(imageList);
+      res.send(imageList);
+    });
+  }
+
+  grabNames();
 
   // let fileLocation = path.join('/public/' , String(fileName));
   // res.sendFile(`${fileLocation}`, { root : __dirname})
+});
+
+app.get("/result/:name", (req, res) => {
+  var fileName = req.params.name;
+  let fileLocation = path.join('/ImageUpload/' , String(fileName));
+  res.sendFile(`${fileLocation}`, { root : __dirname})
+
+  const cleanup = spawn('python3', ["./ImageCleanup/cleanup.py", "./ImageUpload/"]);
+  cleanup.stdout.on('out', function (out) {
+    console.log(out.toString());
+  });
 });
 
 app.listen(port, () => console.log("Server is up"))

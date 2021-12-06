@@ -1,7 +1,27 @@
 .gallery {
-    width: fit-content;
-    height: fit-content;
-    position: center;
-    margin-top: 200px;
-    margin-left: 600px;
+    width: 100vw;
+}
+
+#galleryImages {
+    visibility: visible;
+}
+
+.searchbar {
+    height: 30px;
+    overflow: hidden;
+    position: relative;
+    white-space: nowrap;
+    width: 400px;
+    padding-left: 20pt;
+    font-size: 15pt;
+    color: white;
+    border: 3px solid #eee;
+    border-radius: 5px;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    margin: 40px auto;
+    
+}
+
+.hidden {
+    border: whitesmoke;
 }
