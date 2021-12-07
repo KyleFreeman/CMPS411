@@ -127,43 +127,29 @@ app.get("/download/:name", (req, res) => {
 
   client.db("micro-organisms").collection("fs.files").find({metadata : {classification : queryString}}).toArray(function(err, result) {
     if (err) throw err;
-    Promise.all(result.slice(0,19).map((image) => {
-      bucket.openDownloadStreamByName(image.filename).pipe(fs.createWriteStream('./public/' + image.filename)).on('error', function (error) {
-        assert.ifError(error);
-        console.log("error");
-      }).on('finish', function () {
-        console.log(image.filename);
+    if (result.length == 0) {
+      var noReturn = "none";
+      res.send(noReturn);
+    }
+    else {
+      Promise.all(result.slice(0,19).map((image) => {
+        bucket.openDownloadStreamByName(image.filename).pipe(fs.createWriteStream('./public/' + image.filename)).on('error', function (error) {
+          assert.ifError(error);
+          console.log("error");
+        }).on('finish', function () {
+          console.log(image.filename);
+        });
+        
+        return image.filename;
+  
+      })).then((result) => {
+        setTimeout((() => {
+          console.log(result);
+          res.send(result);
+        }), 2000);
       });
-      
-      return image.filename;
-
-    })).then((result) => {
-      setTimeout((() => {
-        console.log(result);
-        res.send(result);
-      }), 2000);
-    });
-    
-    // for(let i = 0; i < result.length; i++) {
-    //   bucket.openDownloadStreamByName(result[i].filename).pipe(fs.createWriteStream('./public/' + result[i].filename)).on('error', function (error) {
-    //     assert.ifError(error);
-    //     console.log("error");
-    //   }).on('finish', function () {
-    //     console.log(result[i].filename);
-    //   });
-    // }
-
-    // console.log(resultArr);
-
-    // const folderPath = "./public/";
-    // const imageList = fs.readdirSync(folderPath);
-    
-    // console.log(imageList);
+    }
   });
-
-
-  // let fileLocation = path.join('/public/' , String(fileName));
-  // res.sendFile(`${fileLocation}`, { root : __dirname})
 });
 
 app.get("/result/:name", (req, res) => {

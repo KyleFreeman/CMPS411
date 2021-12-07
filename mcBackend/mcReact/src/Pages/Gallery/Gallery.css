@@ -85,3 +85,10 @@ div.UniqueImage img {
     font-size: 28pt;
     color: white;
 }
+
+#noValues {
+    height: fit-content;
+    width: fit-content;
+    margin: 10px auto 15px auto;
+    font-size: xx-large;
+}

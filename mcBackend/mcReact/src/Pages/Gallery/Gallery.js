@@ -9,32 +9,41 @@ const Gallery = () => {
 
   
   const downloadImage = () => {
-    const url = "http://localhost:3001/download/" + String(search);
     setSearch(document.getElementById("header-search").value);
+    const url = "http://localhost:3001/download/" + String(document.getElementById("header-search").value);
 
     axios({
       method: 'get',
       url: url,
     }).then((response) => {
       if(response.status === 200){
-        var listOfImages = new Array();
-        listOfImages = response.data;
-        for(var i = 0; i < listOfImages.length; i++) {
-          listOfImages[i] = "http://localhost:3001/" + listOfImages[i];
+        if(response.data[0] === "none"){
+          const noReturn = [<h2 id="noValues">No Values Found!</h2>]
+          setImages(noReturn);
+          document.getElementById("galleryImages").style.visibility = "hidden";
+          document.getElementById("galleryImages").style.visibility = "visible";
         }
-
-        const listItems = listOfImages.map((image) =>
-          <div className="responsive">
-            <div className="UniqueImage">
-              <a target="_blank" href={image}>
-                <img className="gImage" src={image} alt={search}></img>
-              </a>
+        else {
+          var listOfImages = new Array();
+          listOfImages = response.data;
+          for(var i = 0; i < listOfImages.length; i++) {
+            listOfImages[i] = "http://localhost:3001/" + listOfImages[i];
+          }
+  
+          const listItems = listOfImages.map((image) =>
+            <div className="responsive">
+              <div className="UniqueImage">
+                <a target="_blank" href={image}>
+                  <img className="gImage" src={image} alt={search}></img>
+                </a>
+              </div>
             </div>
-          </div>
-        );
-
-        setImages(listItems);
-        document.getElementById("galleryImages").style.visibility = "visible";
+          );
+  
+          setImages(listItems);
+          document.getElementById("galleryImages").style.visibility = "hidden";
+          document.getElementById("galleryImages").style.visibility = "visible";
+        }
       }
     });
   }
