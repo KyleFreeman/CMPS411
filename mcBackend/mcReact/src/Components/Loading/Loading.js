@@ -2,11 +2,11 @@ import React from 'react'
 import './Loading.css'
 import loading from '../../images/loading.gif'
 
-const Loading = () => {
+const Loading = ({visibility}) => {
 
     return (
         <div id="loadingDiv" className="loadingDiv">
-            <img src={loading} alt="Model Training..." id="loadingGif" className="loadingGif" />
+            <img src={loading} style={{visibility}} alt="Model Training..." id="loadingGif" className="loadingGif" />
         </div>
     )
 }

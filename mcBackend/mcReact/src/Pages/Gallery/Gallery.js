@@ -1,14 +1,18 @@
 import './Gallery.css';
 import axios from 'axios';
 import { useState } from 'react';
+import Loading from '../../Components/Loading/Loading';
 
 const Gallery = () => {
 
   const [Images, setImages] = useState(Array);
   const [search, setSearch] = useState("");
+  const [didLoad, setDidLoad] = useState(false);
+  const [loadStyle, setloadStyle] = useState("none");
 
   
   const downloadImage = () => {
+    setloadStyle("visible");
     setSearch(document.getElementById("header-search").value);
     const url = "http://localhost:3001/download/" + String(document.getElementById("header-search").value);
 
@@ -39,7 +43,9 @@ const Gallery = () => {
               </div>
             </div>
           );
-  
+          
+          setDidLoad(true);
+
           setImages(listItems);
           document.getElementById("galleryImages").style.visibility = "hidden";
           document.getElementById("galleryImages").style.visibility = "visible";
@@ -47,7 +53,7 @@ const Gallery = () => {
       }
     });
   }
-  
+
   return (
     <div className="gallery">
       <div className="searchbar">
@@ -59,10 +65,12 @@ const Gallery = () => {
         />
         <button id="submitInput" type="submit" onClick={downloadImage}><i className="fa fa-search"></i></button>
       </div>
-      <div id="galleryImages">
-        <h1 id="searchClass">{search}</h1>
-        {Images}
-      </div>      
+      {didLoad ? 
+        <div id="galleryImages">
+          <h1 id="searchClass">{search}</h1>
+          {Images}
+        </div>
+      : <Loading visibility={loadStyle}/> } 
     </div>
   );
 }
