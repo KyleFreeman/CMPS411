@@ -55,6 +55,11 @@ const upload = multer({storage: storage})
 //     console.log(req.file);
 // });
 
+app.post("/db", (req, res) => {
+  fs.createReadStream(req.body.pathname).pipe(bucket.openUploadStream(req.body.filename, {metadata: {classification : req.body.classname}})).on('error', function(error) {assert.ifError(error);});
+  res.send("Image Uploaded");
+})
+
 app.post("/upload", upload.single('file'), (req, res) => {
   var classified;
   var fileName = req.file.originalname;
@@ -128,7 +133,7 @@ app.get("/download/:name", (req, res) => {
   client.db("micro-organisms").collection("fs.files").find({metadata : {classification : queryString}}).toArray(function(err, result) {
     if (err) throw err;
     if (result.length == 0) {
-      var noReturn = "none";
+      var noReturn = ["none"];
       res.send(noReturn);
     }
     else {
@@ -146,7 +151,7 @@ app.get("/download/:name", (req, res) => {
         setTimeout((() => {
           console.log(result);
           res.send(result);
-        }), 2000);
+        }), 4000);
       });
     }
   });

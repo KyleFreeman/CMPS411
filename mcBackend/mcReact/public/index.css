@@ -1,8 +1,4 @@
 #root {
-    height: 100vh !important;
-    width: 100vw !important;
-}
-html {
-    height: 100vh !important;
-    width: 100vw !important;
+    height: calc(100vh - 10px) !important;
+    width: calc(100vw - 10px) !important;
 }
