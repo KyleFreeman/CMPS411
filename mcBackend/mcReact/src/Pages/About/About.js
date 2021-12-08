@@ -15,7 +15,7 @@ function About() {
     </div>
 
 
-  const creatorsBox = <div>
+  const creatorsBox = <p>
        Creators:
               Ben Cassel, 
               Allen Mire, 
@@ -23,14 +23,10 @@ function About() {
               Hayden Israel, 
               Kyle Freeman, and 
               Madison LeBlanc
-        
-      <br/>
-      
-      </div>;
-  const clientBox = <div>
+      </p>;
+  const clientBox = <p>
       Client: Dr. Beachy
-      <br/>
-     </div>;
+     </p>;
 
 
   return (

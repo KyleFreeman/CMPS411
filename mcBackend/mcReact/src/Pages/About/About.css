@@ -28,15 +28,13 @@
 }
 
 .client {
-    height: 200px;
-    width: 400px;
+    height: fit-content;
+    width: fit-content;
     font-size: 15pt;
 
     display: flex;
     position: relative;
     margin: 0 auto;
-    left: calc(50vw - 650px);
-
     color: whitesmoke;
 
 }
@@ -47,8 +45,6 @@
     height: 200pt;
     /* bottom: 150px; */
     margin: 50px 70px 50px 35px;
-
-    
 }
 
 #Beachy {

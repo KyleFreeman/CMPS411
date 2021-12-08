@@ -13,6 +13,7 @@ const app = express(); //Line 2
 const port = 3001; //Line 3
 
 app.use(express.static(__dirname + '/public'));
+app.use(express.static(__dirname + '/SubGalImages'));
 app.use(express.json());
 app.use(express.urlencoded({ extended : true }));
 app.use(cors());
@@ -48,17 +49,10 @@ const storage = multer.diskStorage({
 
 const upload = multer({storage: storage})
 
-// app.post("/home", upload.single('file'), (req, res) => {
-//     if (!req.file) {
-//         res.sendStatus(500);
-//     }
-//     console.log(req.file);
-// });
-
-app.post("/db", (req, res) => {
-  fs.createReadStream(req.body.pathname).pipe(bucket.openUploadStream(req.body.filename, {metadata: {classification : req.body.classname}})).on('error', function(error) {assert.ifError(error);});
-  res.send("Image Uploaded");
-})
+// app.post("/db", (req, res) => {
+//   fs.createReadStream(req.body.pathname).pipe(bucket.openUploadStream(req.body.filename, {metadata: {classification : req.body.classname}})).on('error', function(error) {assert.ifError(error);});
+//   res.send("Image Uploaded");
+// })
 
 app.post("/upload", upload.single('file'), (req, res) => {
   var classified;
@@ -69,8 +63,8 @@ app.post("/upload", upload.single('file'), (req, res) => {
   var dataset = '../../../dataset/EMDS5-Original'; 
   var predict = '--test';
 
-  const python = spawn('python', [script, dataset, file, scriptImg, predict]);
-  python.stdout.on('data', function (data) {
+  const python3 = spawn('python3', [script, dataset, file, scriptImg, predict]);
+  python3.stdout.on('data', function (data) {
     console.log("Pipe data from script...");
     classified = data.toString();
     if(predict == "--train") {
@@ -84,11 +78,11 @@ app.post("/upload", upload.single('file'), (req, res) => {
     }
   });
 
-  python.stderr.on('data', (data) => {
+  python3.stderr.on('data', (data) => {
     console.error(`stderr: ${data}`);
   });
 
-  python.on('close', (code) => {
+  python3.on('close', (code) => {
     console.log(`Child Process closed with code ${code}`);
     console.log("Done");
   });
@@ -100,16 +94,16 @@ app.post("/train", (req, res) => {
   var dataset = '../../../dataset/EMDS5-Original'; 
   var predict = '--train';
 
-  const python = spawn('python', [script, dataset, predict]);
-  python.stdout.on('data', function (data) {
+  const python3 = spawn('python3', [script, dataset, predict]);
+  python3.stdout.on('data', function (data) {
     console.log("Pipe data from script...");
   });
 
-  python.stderr.on('data', (data) => {
+  python3.stderr.on('data', (data) => {
     console.error(`stderr: ${data}`);
   });
 
-  python.on('close', (code) => {
+  python3.on('close', (code) => {
     console.log(`Child Process closed with code ${code}`);
     console.log("Done");
     res.send("Model Trained");
@@ -118,7 +112,7 @@ app.post("/train", (req, res) => {
 
 app.get("/download/:name", (req, res) => {
 
-  const DLcleanup = spawn('python', ["./ImageCleanup/cleanup.py", "./public/"]);
+  const DLcleanup = spawn('python3', ["./ImageCleanup/cleanup.py", "./public/"]);
   
   const sleep = (waitTimeInMs) => new Promise(resolve => setTimeout(resolve, waitTimeInMs));
 
@@ -157,12 +151,53 @@ app.get("/download/:name", (req, res) => {
   });
 });
 
+app.get("/subGallery/:name", (req, res) => {
+
+  const DLcleanup = spawn('python3', ["./ImageCleanup/cleanup.py", "./SubGalImages/"]);
+  
+  const sleep = (waitTimeInMs) => new Promise(resolve => setTimeout(resolve, waitTimeInMs));
+
+  sleep(1000).then(() => {
+    DLcleanup.stdout.on('data', function (dlOut) {
+      console.log(dlOut.toString());
+    });
+  });
+  
+  let queryString = req.params.name;
+
+  client.db("micro-organisms").collection("fs.files").find({metadata : {classification : queryString}}).toArray(function(err, result) {
+    if (err) throw err;
+    if (result.length == 0) {
+      var noReturn = ["none"];
+      res.send(noReturn);
+    }
+    else {
+      Promise.all(result.slice(0,4).map((image) => {
+        bucket.openDownloadStreamByName(image.filename).pipe(fs.createWriteStream('./SubGalImages/' + image.filename)).on('error', function (error) {
+          assert.ifError(error);
+          console.log("error");
+        }).on('finish', function () {
+          console.log(image.filename);
+        });
+        
+        return image.filename;
+  
+      })).then((result) => {
+        setTimeout((() => {
+          console.log(result);
+          res.send(result);
+        }), 2000);
+      });
+    }
+  });
+});
+
 app.get("/result/:name", (req, res) => {
   var fileName = req.params.name;
   let fileLocation = path.join('/ImageUpload/' , String(fileName));
   res.sendFile(`${fileLocation}`, { root : __dirname})
 
-  const cleanup = spawn('python', ["./ImageCleanup/cleanup.py", "./ImageUpload/"]);
+  const cleanup = spawn('python3', ["./ImageCleanup/cleanup.py", "./ImageUpload/"]);
   cleanup.stdout.on('out', function (out) {
     console.log(out.toString());
   });
