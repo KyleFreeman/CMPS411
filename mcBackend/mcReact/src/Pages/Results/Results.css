@@ -2,6 +2,13 @@
     width: inherit !important;
     height: inherit !important;
     border: 10px solid white;
+    padding-top: 15px;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-bottom: 15px;
+    background:rgba(0,141,106,0.6);
+    border-radius: 10px;
+    
   }
 
 #ResultsMain {
@@ -10,6 +17,7 @@
   position: relative;
   margin: 100px auto;
 }
+
 
 .classi {
   position: relative;

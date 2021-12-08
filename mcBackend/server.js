@@ -69,7 +69,7 @@ app.post("/upload", upload.single('file'), (req, res) => {
   var dataset = '../../../dataset/EMDS5-Original'; 
   var predict = '--test';
 
-  const python = spawn('python3', [script, dataset, file, scriptImg, predict]);
+  const python = spawn('python', [script, dataset, file, scriptImg, predict]);
   python.stdout.on('data', function (data) {
     console.log("Pipe data from script...");
     classified = data.toString();
@@ -100,7 +100,7 @@ app.post("/train", (req, res) => {
   var dataset = '../../../dataset/EMDS5-Original'; 
   var predict = '--train';
 
-  const python = spawn('python3', [script, dataset, predict]);
+  const python = spawn('python', [script, dataset, predict]);
   python.stdout.on('data', function (data) {
     console.log("Pipe data from script...");
   });
@@ -118,7 +118,7 @@ app.post("/train", (req, res) => {
 
 app.get("/download/:name", (req, res) => {
 
-  const DLcleanup = spawn('python3', ["./ImageCleanup/cleanup.py", "./public/"]);
+  const DLcleanup = spawn('python', ["./ImageCleanup/cleanup.py", "./public/"]);
   
   const sleep = (waitTimeInMs) => new Promise(resolve => setTimeout(resolve, waitTimeInMs));
 
@@ -162,7 +162,7 @@ app.get("/result/:name", (req, res) => {
   let fileLocation = path.join('/ImageUpload/' , String(fileName));
   res.sendFile(`${fileLocation}`, { root : __dirname})
 
-  const cleanup = spawn('python3', ["./ImageCleanup/cleanup.py", "./ImageUpload/"]);
+  const cleanup = spawn('python', ["./ImageCleanup/cleanup.py", "./ImageUpload/"]);
   cleanup.stdout.on('out', function (out) {
     console.log(out.toString());
   });
