@@ -15,7 +15,7 @@ function About() {
     </div>
 
 
-  const creatorsBox = <div>
+  const creatorsBox = <p>
        Creators:
               Ben Cassel, 
               Allen Mire, 
@@ -23,27 +23,25 @@ function About() {
               Hayden Israel, 
               Kyle Freeman, and 
               Madison LeBlanc
-        
-      <br/>
-      
-      </div>;
-  const clientBox = <div>
+      </p>;
+  const clientBox = <p>
       Client: Dr. Beachy
-      <br/>
-     </div>;
+     </p>;
 
 
   return (
     <div className="Main">
       <div className="AboutPage">
-      <TextBox className="about" text={aboutUsBox}/>
-      <img src={Pic} alt="Pic" id="Pic" />
-      <TextBox className="create" text={creatorsBox}/>
-      <img src={Beachy} alt="Dr.Beachy" id="Beachy" />
-      <TextBox className="client" text={clientBox} /> 
+          <TextBox className="about" text={aboutUsBox}/>
+        <div className="aboutUs">
+          <img src={Pic} alt="Pic" id="Pic" />
+          <TextBox className="create" text={creatorsBox}/>
+        </div>
+        <div className="aboutClient">
+          <img src={Beachy} alt="Dr.Beachy" id="Beachy" />
+          <TextBox className="client" text={clientBox} /> 
+        </div>
       </div>
-
-     
     </div>
   );
 }

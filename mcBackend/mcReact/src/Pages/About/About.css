@@ -28,15 +28,13 @@
 }
 
 .client {
-    height: 200px;
-    width: 400px;
+    height: fit-content;
+    width: fit-content;
     font-size: 15pt;
 
     display: flex;
     position: relative;
     margin: 0 auto;
-    left: calc(50vw - 650px);
-
     color: whitesmoke;
 
 }
@@ -45,16 +43,38 @@
     position: relative;
     width: 400pt;
     height: 200pt;
-    left: calc(50vw - 275px);
     /* bottom: 150px; */
-    margin: 0 auto;
-
-    
+    margin: 50px 70px 50px 35px;
 }
 
 #Beachy {
     position: relative;
-    left: calc(50vw - 150px);
-    
-    margin-bottom: 0px;
+    margin: 50px 150px 50px 70px;
+}
+
+.aboutUs {
+    width: 600px;
+    height: 500px;
+    margin: 100px auto auto 50px;
+    border: 8px solid white;
+    padding-top: 5px;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-bottom: 5px;
+    background:rgba(0,141,106,0.6);
+    border-radius: 10px;
+}
+
+.aboutClient { 
+    width: 400px;
+    height: 500px;
+    margin: -525px 100px auto auto;
+    border: 8px solid white;
+    padding-top: 5px;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-bottom: 5px;
+    background:rgba(0,141,106,0.6);
+    border-radius: 10px;
+    float: right;
 }

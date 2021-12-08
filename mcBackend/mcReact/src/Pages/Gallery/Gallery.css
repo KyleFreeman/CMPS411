@@ -1,7 +1,96 @@
 .gallery {
-    width: fit-content;
+    width: 100vw;
+    height: 700px;
+}
+
+#galleryImages {
+    margin: auto auto 80px auto;
+    padding-top: 15px;
+    padding-left: 10px;
+    width: calc(100vw - 300px);
+    height: calc(100vh - 400px);
+    background:rgba(0,141,106,0.6);
+    border: 5px solid white;
+    border-radius: 10px;
+    visibility: hidden;
+    overflow-y: auto;
+}
+
+div.UniqueImage {
+    border: 1px solid #ccc;
+}
+
+div.UniqueImage:hover {
+    border: 1px solid #777;
+}
+
+div.UniqueImage img {
+    width: 300px;
+    height: 200px;
+}
+
+.UniqueImage, .responsive {
+    box-sizing: border-box;
+}
+
+.responsive {
+    margin: 6px 0 10px 0;
+    padding: 0 6px;
+    float: left;
+}
+
+@media only screen and (max-width: 700px) {
+    .responsive {
+        width: 49.99999%;
+        margin: 6px 0;
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    .responsive {
+        width: 100%;
+    }
+}
+
+.searchbar {
+    height: 45px;
+    width: 290px;
+    border: 3px solid #eee;
+    border-radius: 5px;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    margin: 100px auto 20px 140px;
+    background:rgba(0,141,106,0.6);
+}
+
+#header-search {
+    padding: 6px;
+    margin: 6px 0px 6px 6px;
+    font-size: 17px;
+    border: none;
+}
+
+#submitInput {
+    padding: 6px 10px;
+    background: #ddd;
+    font-size: 17px;
+    border: none;
+    cursor: pointer;
+}
+
+#submitInput:hover {
+    background: #ccc;
+}
+
+#searchClass {
+    margin: 10px auto 15px auto;
+    text-align: center;
+    font-size: 28pt;
+    color: white;
+}
+
+#noValues {
     height: fit-content;
-    position: center;
-    margin-top: 200px;
-    margin-left: 600px;
+    width: fit-content;
+    margin: 10px auto 15px auto;
+    font-size: xx-large;
 }

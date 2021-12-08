@@ -1,5 +1,5 @@
 html {
-    height: 100%;
+    height: calc(100vh + 105px);
     width: 100vw;
     background-image: url("../../images/background_plain.png");
     background-size: cover;
@@ -8,12 +8,12 @@ html {
 
 .HomePage {
     width: 100vw;
-    height: 100%;
+    height: 100vh;
 }
 
 .instruct {
     height: 350px;
-    width: 400px;
+    width: 650px;
     font-size: xx-large;
     margin-top: 100px;
     position: relative;

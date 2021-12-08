@@ -32,7 +32,7 @@ const UploadBtn = (props) => {
             </div>
            <button className="submitBtn" onClick={submitForm}>Upload</button>
            <p className="classify" id="classify"></p>
-           <Button type="Train Model" />
+           {/* <Button type="Train Model" /> */}
         </div>
     )
 }
