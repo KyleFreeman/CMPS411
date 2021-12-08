@@ -36,14 +36,16 @@ function About() {
   return (
     <div className="Main">
       <div className="AboutPage">
-      <TextBox className="about" text={aboutUsBox}/>
-      <img src={Pic} alt="Pic" id="Pic" />
-      <TextBox className="create" text={creatorsBox}/>
-      <img src={Beachy} alt="Dr.Beachy" id="Beachy" />
-      <TextBox className="client" text={clientBox} /> 
+          <TextBox className="about" text={aboutUsBox}/>
+        <div className="aboutUs">
+          <img src={Pic} alt="Pic" id="Pic" />
+          <TextBox className="create" text={creatorsBox}/>
+        </div>
+        <div className="aboutClient">
+          <img src={Beachy} alt="Dr.Beachy" id="Beachy" />
+          <TextBox className="client" text={clientBox} /> 
+        </div>
       </div>
-
-     
     </div>
   );
 }
