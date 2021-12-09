@@ -23,6 +23,7 @@ const Gallery = () => {
       if(response.status === 200){
         if(response.data[0] === "none"){
           const noReturn = [<h2 id="noValues">No Values Found!</h2>]
+          setDidLoad(true);
           setImages(noReturn);
           document.getElementById("galleryImages").style.visibility = "hidden";
           document.getElementById("galleryImages").style.visibility = "visible";
