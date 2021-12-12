@@ -1,31 +1,37 @@
 import './About.css';
 import TextBox from '../../Components/TextBox/TextBox';
 import Beachy from '../../images/beachy.jpg'
-import Pic from '../../images/header.png';
+import Pic from '../../images/IMG_0578.jpg';
 
 function About() {
 
   const aboutUsBox = <div>
       About Us!
-
-      <ul> Group of CMPS students</ul>
-   
-
     <br/>
     </div>
 
 
   const creatorsBox = <p>
-       Creators:
-              Ben Cassel, 
-              Allen Mire, 
-              Max Cole, 
+       <p id="creators">
+        Creators:(Left to Right)
+        <br/>
               Hayden Israel, 
+              Allen Mire, 
+              Ben Cassel, 
+              Max Cole, 
               Kyle Freeman, and 
               Madison LeBlanc
+        <br/>
+        <br/>
+        Undergraduate students at Southeastern Louisiana University
+       </p>
       </p>;
-  const clientBox = <p>
-      Client: Dr. Beachy
+  const clientBox = <p id="creators">
+      Client:
+      <br/>
+      Dr. Christopher Beachy
+      <br/>
+      Department Head of Biology at Southeastern Louisiana University
      </p>;
 
 

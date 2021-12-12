@@ -16,8 +16,8 @@
 } 
 
 .create {
-    height: 200px;
-    width: 400px;
+    height: 100px;
+    width: 600px;
     font-size: 15pt;
 
     display: flex;
@@ -41,21 +41,26 @@
 
 #Pic {
     position: relative;
-    width: 400pt;
-    height: 200pt;
+    width: 500px;
+    height: 600px;
     /* bottom: 150px; */
-    margin: 50px 70px 50px 35px;
+    margin: 50px auto 0px 75px;
 }
 
 #Beachy {
     position: relative;
-    margin: 50px 150px 50px 70px;
+    margin: 50px auto 10px 85px;
+}
+
+#creators {
+    text-align: center;
+    margin: 0px auto auto auto;
 }
 
 .aboutUs {
-    width: 600px;
-    height: 500px;
-    margin: 100px auto auto 50px;
+    width: 650px;
+    height: 820px;
+    margin: -50px auto auto 150px;
     border: 8px solid white;
     padding-top: 5px;
     padding-left: 5px;
@@ -66,9 +71,9 @@
 }
 
 .aboutClient { 
-    width: 400px;
+    width: 420px;
     height: 500px;
-    margin: -525px 100px auto auto;
+    margin: -750px 250px auto auto;
     border: 8px solid white;
     padding-top: 5px;
     padding-left: 5px;
